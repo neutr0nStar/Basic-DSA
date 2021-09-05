@@ -12,8 +12,8 @@ Basic data structures and algorithms implemented in C++ using OOP.
 * Queue
   * Circular array implementation
   * Linked list implementation
-* Binary Search Tree
-* Graph
+* Binary Search Tree ( [Notes](./BST/notes.md) )
+* Graph ( [Notes](./Graph/notes.md) )
 
 ## Algorithms
 * Searching algorithms
