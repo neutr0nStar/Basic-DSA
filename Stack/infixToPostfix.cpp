@@ -87,8 +87,8 @@ string infix_to_postfix(const string infix)
 
         if (c == ')')
         {
-            // if opening bracket is encountered, pop elements from stack and
-            // append to res until ')' is encountered
+            // if closing bracket is encountered, pop elements from stack and
+            // append to res until '(' is encountered
             while (!stack.is_empty() && stack.get_top() != '(')
             {
                 res += stack.get_top();
