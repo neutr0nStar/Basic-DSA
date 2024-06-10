@@ -118,8 +118,8 @@ class BinarySearchTree {
         // we can simply delete it, and set pointer to null
         // other 2 cases are shown below
         if(!rootptr) return rootptr;
-        else if(key < rootptr->data) root->left = rec_del(rootptr->left, key);
-        else if(key > rootptr->data) root->left = rec_del(rootptr->left, key);
+        else if(key < rootptr->data) rootptr->left = rec_del(rootptr->left, key);
+        else if(key > rootptr->data) rootptr->right = rec_del(rootptr->right, key);
         else { // Node with given key is found
             // Case 1: no child (leaf node)
             if(rootptr->left == nullptr && rootptr->right == nullptr) {
@@ -149,10 +149,18 @@ class BinarySearchTree {
                 // then we will change the current node's value to the value of rmin
                 // then delete rmin from right side subtree
                 // We can also do this with left side using maximum element.
-                BstNode* temp = rootptr;
-                while(temp->right) temp = temp->right;
-                rootptr->data = temp->data;
-                rootptr->right = rec_del(rootptr->right, temp->data);
+                BstNode* parent = rootptr, *child = rootptr->right;
+                while (child->left) {
+                    parent = child;
+                    child = child->left;
+                }
+                rootptr->data = child->data;
+                if(parent->left == child) {
+                    parent->left = child->right;
+                } else {
+                    parent->right = child->right;
+                }
+                delete child;
             }
         }
         return rootptr; 
