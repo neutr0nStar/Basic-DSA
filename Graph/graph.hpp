@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../LinkedList/linkedList.hpp"
 #include "../Queue/linkedListQueue.hpp"
+#include "../Stack/linkedListStack.hpp"
 
 #ifndef GRAPH_H
 #define GRAPH_H
@@ -25,6 +26,8 @@ class Graph {
     // @param to: to vertex
     void add_edge(int from, int to) {
         adj[from].insert_end(to);
+        if (from != to)
+            adj[to].insert_end(from);
     }
 
     // Breadth first search in graph
@@ -49,6 +52,31 @@ class Graph {
                 }
             }
         }
+        std::cout << std::endl;
+    }
+
+    void dfs(int from) {
+        bool is_visited[nVertices] = {false};
+
+        LinkedListStack<int> stack;
+        is_visited[from] = true;
+        stack.push(from);
+        int n;
+
+        while(!stack.is_empty()) {
+            n = stack.get_top();
+            std::cout << n << " ";
+            stack.pop();
+
+            for(int i = 0; i < adj[n].get_size(); i++) {
+                if(!is_visited[adj[n][i]]) {
+                    is_visited[adj[n][i]] = true;
+                    stack.push(adj[n][i]);
+                }
+            }
+        }
+
+        std::cout << std::endl;
     }
 };
 
